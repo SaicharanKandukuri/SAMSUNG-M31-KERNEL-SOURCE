@@ -2063,6 +2063,10 @@ static int decon_set_hdr_info(struct decon_device *decon,
 #else
 	video_meta = (struct exynos_video_meta *)dma_buf_vmap(
 			regs->dma_buf_data[win_num][meta_plane].dma_buf);
+	if (IS_ERR_OR_NULL(video_meta)) {
+		decon_err("Failed to get virtual address (err %pK)\n", video_meta);
+		return -ENOMEM;
+	}
 #endif
 
 	hdr_cmp = memcmp(&decon->prev_hdr_info,
@@ -2736,7 +2740,6 @@ static int decon_set_win_config(struct decon_device *decon,
 			sizeof(struct decon_rect));
 
 	if (num_of_window) {
-		fd_install(win_data->retire_fence, sync_file->file);
 		decon_create_release_fences(decon, win_data, sync_file);
 #if !defined(CONFIG_SUPPORT_LEGACY_FENCE)
 		regs->retire_fence = dma_fence_get(sync_file->fence);
@@ -2753,6 +2756,18 @@ static int decon_set_win_config(struct decon_device *decon,
 		atomic_read(&decon->up.remaining_frame);
 	mutex_unlock(&decon->up.lock);
 	kthread_queue_work(&decon->up.worker, &decon->up.work);
+
+	/*
+	 * The code is moved here because the DPU driver may get a wrong fd
+	 * through the released file pointer,
+	 * if the user(HWC) closes the fd and releases the file pointer.
+	 *
+	 * Since the user land can use fd from this point/time,
+	 * it can be guaranteed to use an unreleased file pointer
+	 * when creating a rel_fence in decon_create_release_fences(...)
+	 */
+	if (num_of_window)
+		fd_install(win_data->retire_fence, sync_file->file);
 
 	mutex_unlock(&decon->lock);
 #if defined(CONFIG_SUPPORT_MASK_LAYER)
@@ -3435,6 +3450,10 @@ static int decon_fb_alloc_memory(struct decon_device *decon, struct decon_win *w
 	}
 
 	vaddr = dma_buf_vmap(buf);
+	if (IS_ERR_OR_NULL(vaddr)) {
+		dev_err(decon->dev, "dma_buf_vmap() failed\n");
+		goto err_map;
+	}
 #endif
 
 	memset(vaddr, 0x00, size);
