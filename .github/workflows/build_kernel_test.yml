@@ -1,0 +1,19 @@
+name: build-kernel-test
+on:
+  push:
+
+jobs:
+  BuildTest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Satisfy Dependencies
+        run: sudo apt-get install -y build-essential libtinfo* python libncurses-dev
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Start Kernel Build
+        run: sudo bash build_kernel.sh
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Image-dtb-built
+          path: arch/arm64/Image.gz-dtb
