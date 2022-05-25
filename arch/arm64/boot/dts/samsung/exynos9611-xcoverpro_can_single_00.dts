@@ -21,7 +21,7 @@
 / {
 	compatible = "samsung, XCOVERPRO CAN SINGLE REV00", "samsung,EXYNOS9611";
 	dtbo-hw_rev = <0>;
-	dtbo-hw_rev_end = <255>;
+	dtbo-hw_rev_end = <4>;
 
 	fragment@model {
 		target-path = "/";

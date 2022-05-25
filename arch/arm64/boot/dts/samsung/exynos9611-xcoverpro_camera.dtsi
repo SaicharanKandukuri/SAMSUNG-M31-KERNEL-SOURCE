@@ -406,10 +406,10 @@
 			video_high_speed_120fps_int = <DVFS_INT_L4>;
 			video_high_speed_120fps_hpg = <1>;
 
-			video_high_speed_240fps_int_cam = <DVFS_INT_CAM_L1>;
-			video_high_speed_240fps_cam = <DVFS_CAM_L1>;
+			video_high_speed_240fps_int_cam = <DVFS_INT_CAM_L0>;
+			video_high_speed_240fps_cam = <DVFS_CAM_L0>;
 			video_high_speed_240fps_mif = <DVFS_MIF_L0>;
-			video_high_speed_240fps_int = <DVFS_INT_L4>;
+			video_high_speed_240fps_int = <DVFS_INT_L3>;
 			video_high_speed_240fps_hpg = <8>;
 
 			video_high_speed_480fps_int_cam = <DVFS_INT_CAM_L0>;

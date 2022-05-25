@@ -36,7 +36,7 @@
 			};
 
 			chosen {
-				bootargs = "console=ram root=/dev/ram0 androidboot.boot_devices=13520000.ufs clk_ignore_unused bcm_setup=0xffffff80f8e00000 androidboot.hardware=exynos9611 androidboot.selinux=permissive androidboot.debug_level=0x4948 firmware_class.path=/vendor/firmware ecd_setup=disable reserve-fimc=0xffffff80fa000000 pmic_info=0x3";
+				bootargs = "console=ram root=/dev/ram0 androidboot.boot_devices=13520000.ufs clk_ignore_unused bcm_setup=0xffffff80f8e00000 androidboot.hardware=exynos9611 androidboot.selinux=permissive androidboot.debug_level=0x4948 firmware_class.path=/vendor/firmware ecd_setup=disable reserve-fimc=0xffffff80fa000000 pmic_info=0x3 loop.max_part=7";
 				linux,initrd-start = <0x84000000>;
 				linux,initrd-end = <0x841FFFFF>;
 			};

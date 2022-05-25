@@ -26,34 +26,21 @@
 				fuelgauge,sw_v_empty_voltage = <3200>;
 				fuelgauge,sw_v_empty_voltage_cisd = <3100>;
 				fuelgauge,sw_v_empty_recover_voltage = <3480>;
-				fuelgauge,ttf_capacity = <4750>;
+				fuelgauge,ttf_capacity = <5100>;
 				fuelgauge,cv_data = <
-					2264	898		2138
-					2161	904		2081
-					2066	909		2032
-					2014	914		1976
-					1973	917		1941
-					1909	920		1905
-					1866	924		1867
-					1754	932		1772
-					1706	935		1728
-					1667	940		1666
-					1526	948		1552
-					1466	951		1517
-					1424	956		1444
-					1324	962		1339
-					1272	966		1269
-					1222	969		1233
-					1175	974		1131
-					1126	977		1092
-					1076	980		1021
-					988		988		848
-					950		991		777
-					913		994		717
-					810		999		586
-					670		1000	212
-					615		1000	71
-					584		1000	0
+					2246	885	1747
+					2189	892	1523
+					2027	902	1424
+					1914	911	1343
+					1776	920	1241
+					1602	932	1123
+					1496	941	1005
+					1376	951	883
+					1223	960	750
+					1082	970	577
+					979	980	393
+					816	990	180
+					710	1000	0
 					>;
 
 				battery_params {
@@ -288,7 +275,7 @@
 				battery,siop_hv_wireless_charging_limit_current = <700>;
 				battery,siop_store_hv_wireless_input_limit_current = <450>;
 
-				battery,ttf_hv_charge_current = <2080>;
+				battery,ttf_hv_charge_current = <2070>;
 				battery,ttf_hv_wireless_charge_current = <1050>;
 				battery,ttf_wireless_charge_current = <900>;
 

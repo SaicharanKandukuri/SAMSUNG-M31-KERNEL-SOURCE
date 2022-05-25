@@ -205,7 +205,7 @@
 		//skip_cal_loading;
 		check_sensor_vendor;
 		max_supported_camera = <6>;
-		supported_cameraId = <0 3 23 50 52 54>;
+		supported_cameraId = <0 1 23 50 52 54>;
 		/* REAR, FRONT, DUAL_REAR_PORTRAIT_WIDE(Bokeh), REAR_2, REAR_3, REAR_4(Macro) */
 
 		max_camera_num = <5>;
