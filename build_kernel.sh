@@ -11,6 +11,12 @@ function K_MAKE() {
     CROSS_COMPILE="./toolchain/gcc/bin/aarch64-linux-android-" "$1"
 }
 
+# Clean before run
+K_MAKE clean
+
+# proper before run
+K_MAKE mrproper
+
 # Make .config
 K_MAKE "m31nsxx_00_defconfig"
 
