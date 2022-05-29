@@ -10,7 +10,7 @@ jobs:
         run: sudo apt-get install -y build-essential libtinfo* python libncurses-dev
       - name: Checkout repo
         uses: actions/checkout@v2
-      - name: exec setup
+      - name: exec setup script
         run: bash setup.sh
       - name: Start Kernel Build
         run: sudo bash build_kernel.sh

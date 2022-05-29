@@ -2,7 +2,6 @@ make /root/kernel/SAMSUNG-M31-KERNEL-SOURCE/Makefile --dry-run --always-make --k
 make: Entering directory '/root/kernel/SAMSUNG-M31-KERNEL-SOURCE'
  
 ./scripts/gcc-version.sh: line 26: ./toolchain/clang/bin/clang: No such file or directory
-
 ./scripts/gcc-version.sh: line 27: ./toolchain/clang/bin/clang: No such file or directory
 
 make: ./toolchain/clang/bin/clang: No such file or directory
@@ -36,9 +35,7 @@ drivers/samsung/misc/Kconfig:13:warning: ignoring type redefinition of 'SEC_DEBU
 *** Please run some configurator (e.g. "make oldconfig" or
 *** "make menuconfig" or "make xconfig").
 ***
-
 make[2]: *** [scripts/kconfig/Makefile:40: silentoldconfig] Error 1
-
 make[1]: *** [Makefile:555: silentoldconfig] Error 2
 
 make: '/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/Makefile' is up to date.
