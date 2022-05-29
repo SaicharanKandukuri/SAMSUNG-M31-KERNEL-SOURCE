@@ -1,11 +1,24 @@
 #!/bin/bash
 
-export ARCH=arm64
+function K_MAKE() {
+    make \
+    PLATFORM_VERSION=12 \
+    ARCH=arm64 \
+    ANDROID_MAJOR_VERSION=s \
+    CONFIG_SECTION_MISMATCH_WARN_ONLY=y \
+    CC="./toolchain/clang/bin/clang" \
+    CLANG_TRIPLE="./toolchain/gnu/bin/aarch64-linux-gnu-" \
+    CROSS_COMPILE="./toolchain/gcc/bin/aarch64-linux-android-" "$1"
+}
 
+# Clean before run
+K_MAKE clean
 
-export PLATFORM_VERSION=11
-export ANDROID_MAJOR_VERSION=r
-export ARCH=arm64
+# proper before run
+K_MAKE mrproper
 
-make ARCH=arm64 m31nsxx_00_defconfig
-make ARCH=arm64 -j64
+# Make .config
+K_MAKE "m31nsxx_00_defconfig"
+
+# BUILD KERNEL
+K_MAKE -j"$(nproc)"
