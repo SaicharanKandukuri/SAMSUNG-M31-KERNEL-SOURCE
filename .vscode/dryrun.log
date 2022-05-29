@@ -1,7 +1,14 @@
 make /root/kernel/SAMSUNG-M31-KERNEL-SOURCE/Makefile --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/root/kernel/SAMSUNG-M31-KERNEL-SOURCE'
  
+./scripts/gcc-version.sh: line 26: ./toolchain/clang/bin/clang: No such file or directory
+
+./scripts/gcc-version.sh: line 27: ./toolchain/clang/bin/clang: No such file or directory
+
+make: ./toolchain/clang/bin/clang: No such file or directory
+
 /bin/sh: 1: Syntax error: "(" unexpected
+make: ./toolchain/clang/bin/clang: No such file or directory
 
   HOSTCC  scripts/basic/fixdep
  
@@ -35,6 +42,5 @@ make[2]: *** [scripts/kconfig/Makefile:40: silentoldconfig] Error 1
 make[1]: *** [Makefile:555: silentoldconfig] Error 2
 
 make: '/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/Makefile' is up to date.
- 
 make: Leaving directory '/root/kernel/SAMSUNG-M31-KERNEL-SOURCE'
  

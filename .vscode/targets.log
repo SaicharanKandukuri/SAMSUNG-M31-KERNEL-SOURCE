@@ -1,5 +1,13 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+./scripts/gcc-version.sh: line 26: ./toolchain/clang/bin/clang: No such file or directory
+
+./scripts/gcc-version.sh: line 27: ./toolchain/clang/bin/clang: No such file or directory
+
+make: ./toolchain/clang/bin/clang: No such file or directory
+
 /bin/sh: 1: Syntax error: "(" unexpected
+
+make: ./toolchain/clang/bin/clang: No such file or directory
 
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
@@ -7,9 +15,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Wed May 25 17:53:30 2022
+ 
+# Make data base, printed on Sun May 29 18:12:41 2022
 
 # Variables
 
@@ -90,7 +98,7 @@ subdir-ym :=
 # environment
 RETPOLINE_VDSO_CFLAGS = 
 # environment
-KBUILD_CFLAGS = -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -Werror -std=gnu89 -DANDROID_VERSION=990000 --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as -mno-implicit-float -DCONFIG_AS_LSE=1  -fno-asynchronous-unwind-tables -fno-pic -Wno-asm-operand-widths
+KBUILD_CFLAGS = -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -Werror -std=gnu89 -DANDROID_VERSION=990000 -mgeneral-regs-only   -fno-asynchronous-unwind-tables -fno-pic
 # makefile (from 'scripts/Makefile.lib', line 271)
 quiet_cmd_gzip = GZIP    $@
 # makefile (from 'scripts/Kbuild.include', line 172)
@@ -132,7 +140,7 @@ quiet_cmd_host-cxxshlib = HOSTLLD -shared $@
 # makefile (from 'scripts/Makefile.build', line 394)
 cmd_gensymtypes_S = (echo "#include <linux/kernel.h>" ; echo "#include <asm/asm-prototypes.h>" ; $(CPP) $(a_flags) $< | grep "\<___EXPORT_SYMBOL\>" | sed 's/.*___EXPORT_SYMBOL[[:space:]]*\([a-zA-Z0-9_]*\)[[:space:]]*,.*/EXPORT_SYMBOL(\1);/' ) | $(CPP) -D__GENKSYMS__ $(c_flags) -xc - | $(GENKSYMS) $(if $(1), -T $(2)) $(patsubst y,-s _,$(CONFIG_HAVE_UNDERSCORE_SYMBOL_PREFIX)) $(patsubst y,-R,$(CONFIG_MODULE_REL_CRCS)) $(if $(KBUILD_PRESERVE),-p) -r $(firstword $(wildcard $(2:.symtypes=.symref) /dev/null))
 # environment
-KBUILD_AFLAGS = -D__ASSEMBLY__ --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as -DCONFIG_AS_LSE=1 
+KBUILD_AFLAGS = -D__ASSEMBLY__  
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # makefile (from 'scripts/Makefile.lib', line 389)
@@ -160,7 +168,7 @@ gcc-ifversion = $(call __cc-ifversion, gcc, $(1), $(2), $(3), $(4))
 # environment
 PWD = /root/kernel/SAMSUNG-M31-KERNEL-SOURCE
 # environment
-CFLAGS_KCOV = -fsanitize-coverage=trace-pc
+CFLAGS_KCOV = 
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # makefile (from 'scripts/Kbuild.include', line 230)
@@ -230,7 +238,7 @@ cmd = @$(echo-cmd) $(cmd_$(1))
 # makefile (from 'scripts/Makefile.build', line 649)
 cmd_link_multi-m = $(cmd_link_multi-link)
 # environment
-KBUILD_ARFLAGS = D
+KBUILD_ARFLAGS = 
 # makefile (from 'scripts/Makefile.build', line 157)
 quiet_cmd_cpp_i_c = CPP $(quiet_modtag) $@
 # makefile (from 'scripts/Makefile.lib', line 165)
@@ -298,12 +306,12 @@ space_escape := _-_SPACE_-_
 # makefile (from 'scripts/basic/.fixdep.cmd', line 1)
 MAKEFILE_LIST := scripts/Makefile.build scripts/Kbuild.include scripts/basic/Makefile scripts/Makefile.lib scripts/Makefile.host scripts/basic/.fixdep.cmd
 # makefile (from 'scripts/Makefile.lib', line 89)
+ 
 multi-objs-m := 
 # automatic
 @F = $(notdir $@)
 # makefile (from 'scripts/Makefile.build', line 465)
 cmd_cpp_lds_S = $(CPP) $(cpp_flags) -P -U$(ARCH) -D__ASSEMBLY__ -DLINKER_SCRIPT -o $@ $<
- 
 # environment
 KBUILD_CFLAGS_KERNEL = 
 # environment
@@ -424,8 +432,6 @@ cmd_host-cshlib = $(HOSTCC) $(HOSTLDFLAGS) -shared -o $@ $(addprefix $(obj)/,$($
 SHELL = /bin/sh
 # makefile (from 'scripts/Makefile.lib', line 75)
 extra-y := 
-# environment
-CLANG_FLAGS = --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as
 # makefile (from 'scripts/Makefile.lib', line 259)
 cmd_ld = $(LD) $(LDFLAGS) $(ldflags-y) $(LDFLAGS_$(@F)) $(filter-out FORCE,$^) -o $@
 # makefile (from 'scripts/Makefile.lib', line 152)
@@ -580,14 +586,14 @@ try-run = $(shell set -e; TMP="$(TMPOUT).$$$$.tmp"; TMPO="$(TMPOUT).$$$$.o"; if 
 LESS = -R
 # environment
 KBUILD_CPPFLAGS = -D__KERNEL__ -mlittle-endian
+ 
 # makefile (from 'scripts/Kbuild.include', line 24)
 basetarget = $(basename $(notdir $@))
 # environment
-WSL_INTEROP = /run/WSL/5484_interop
+WSL_INTEROP = /run/WSL/14915_interop
 # makefile (from 'scripts/Makefile.build', line 423)
 quiet_cmd_as_o_S = AS $(quiet_modtag)  $@
 # 'override' directive
- 
 GNUMAKEFLAGS := 
 # makefile (from 'scripts/Makefile.build', line 676)
 PHONY := __build FORCE
@@ -724,7 +730,7 @@ rule_cc_o_c = 	$(call echo-cmd,checksrc) $(cmd_checksrc) $(call cmd_and_fixdep,c
 # environment
 KBUILD_KCONFIG = 
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-0d9fed91-e1e9-4a1b-b103-5acd34cbf9b5.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-fd04c72f-3af5-4bf1-b567-03d88b36451f.sock
 # makefile (from 'scripts/Kbuild.include', line 169)
 gcc-if-fullversion = (call __cc-if-fullversion, gcc, $(1), $(2), $(3), $(4))
 # makefile (from 'scripts/Kbuild.include', line 218)
@@ -814,6 +820,7 @@ LD = ./toolchain/gcc/bin/aarch64-linux-android-ld -EL
 # makefile (from 'scripts/Kbuild.include', line 20)
 depfile = $(subst $(comma),_,$(dot-target).d)
 # makefile (from 'scripts/Makefile.build', line 426)
+ 
 cmd_as_o_S = $(CC) $(a_flags) -c -o $@ $<
 # makefile (from 'scripts/Makefile.lib', line 88)
 multi-objs-y := 
@@ -860,7 +867,6 @@ KERNELRELEASE =
 # environment
 KERNELVERSION = 4.14.113
 # makefile (from 'scripts/Makefile.host', line 141)
- 
 cmd_host-cshobjs = $(HOSTCC) $(hostc_flags) -fPIC -c -o $@ $<
 # environment
 CHECKFLAGS = -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ -Wbitwise -Wno-return-void  -D__AARCH64EL__ -D__aarch64__ -m64
@@ -875,7 +881,7 @@ obj = scripts/basic
 # environment
 LDFLAGS_vmlinux = --no-undefined -X
 # variable set hash-table stats:
-# Load=423/1024=41%, Rehash=0, Collisions=379/900=42%
+# Load=422/1024=41%, Rehash=0, Collisions=379/899=42%
 
 # Pattern-specific Variable Values
 
@@ -883,9 +889,9 @@ LDFLAGS_vmlinux = --no-undefined -X
 
 # Directories
 
-# scripts/basic (device 2080, inode 351027): 7 files, 3 impossibilities.
+# scripts/basic (device 2080, inode 351027): 8 files, 3 impossibilities.
 
-# 7 files, 3 impossibilities in 1 directories.
+# 8 files, 3 impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -955,6 +961,7 @@ scripts/basic/%-asn1.c scripts/basic/%-asn1.h: scripts/basic/%.asn1 scripts/asn1
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 #  Implicit rule search has been done.
+ 
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
 #  Successfully updated.
@@ -968,7 +975,7 @@ scripts/basic/%-asn1.c scripts/basic/%-asn1.h: scripts/basic/%.asn1 scripts/asn1
 scripts/basic/fixdep: scripts/basic/fixdep.c FORCE /usr/include/stdc-predef.h /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/features.h /usr/include/features-time64.h /usr/include/x86_64-linux-gnu/bits/wordsize.h /usr/include/x86_64-linux-gnu/bits/timesize.h /usr/include/x86_64-linux-gnu/sys/cdefs.h /usr/include/x86_64-linux-gnu/bits/long-double.h /usr/include/x86_64-linux-gnu/gnu/stubs.h /usr/include/x86_64-linux-gnu/gnu/stubs-64.h /usr/include/x86_64-linux-gnu/bits/types.h /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/x86_64-linux-gnu/bits/time64.h /usr/include/x86_64-linux-gnu/bits/types/clock_t.h /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h /usr/include/x86_64-linux-gnu/bits/types/time_t.h /usr/include/x86_64-linux-gnu/bits/types/timer_t.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h /usr/include/x86_64-linux-gnu/bits/stdint-intn.h /usr/include/endian.h /usr/include/x86_64-linux-gnu/bits/endian.h /usr/include/x86_64-linux-gnu/bits/endianness.h /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/x86_64-linux-gnu/bits/uintn-identity.h /usr/include/x86_64-linux-gnu/sys/select.h /usr/include/x86_64-linux-gnu/bits/select.h /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h /usr/include/x86_64-linux-gnu/bits/select2.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h /usr/include/x86_64-linux-gnu/bits/struct_mutex.h /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/x86_64-linux-gnu/sys/stat.h /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/x86_64-linux-gnu/bits/struct_stat.h /usr/include/x86_64-linux-gnu/sys/mman.h /usr/include/x86_64-linux-gnu/bits/mman.h /usr/include/x86_64-linux-gnu/bits/mman-map-flags-generic.h /usr/include/x86_64-linux-gnu/bits/mman-linux.h /usr/include/x86_64-linux-gnu/bits/mman-shared.h /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h /usr/include/x86_64-linux-gnu/bits/environments.h /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/x86_64-linux-gnu/bits/getopt_posix.h /usr/include/x86_64-linux-gnu/bits/getopt_core.h /usr/include/x86_64-linux-gnu/bits/unistd.h /usr/include/x86_64-linux-gnu/bits/unistd_ext.h /usr/include/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h /usr/include/x86_64-linux-gnu/bits/fcntl2.h /usr/include/string.h /usr/include/x86_64-linux-gnu/bits/libc-header-start.h /usr/include/x86_64-linux-gnu/bits/types/locale_t.h /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h /usr/include/strings.h /usr/include/x86_64-linux-gnu/bits/strings_fortified.h /usr/include/x86_64-linux-gnu/bits/string_fortified.h /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/x86_64-linux-gnu/bits/floatn.h /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h /usr/include/x86_64-linux-gnu/bits/types/__FILE.h /usr/include/x86_64-linux-gnu/bits/types/FILE.h /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h /usr/include/x86_64-linux-gnu/bits/stdio_lim.h /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h /usr/include/x86_64-linux-gnu/bits/local_lim.h /usr/include/linux/limits.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h /usr/include/x86_64-linux-gnu/bits/posix2_lim.h /usr/include/ctype.h /usr/include/arpa/inet.h /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h /usr/include/x86_64-linux-gnu/sys/socket.h /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h /usr/include/x86_64-linux-gnu/bits/socket.h /usr/include/x86_64-linux-gnu/bits/socket_type.h /usr/include/x86_64-linux-gnu/bits/sockaddr.h /usr/include/x86_64-linux-gnu/asm/socket.h /usr/include/asm-generic/socket.h /usr/include/linux/posix_types.h /usr/include/linux/stddef.h /usr/include/x86_64-linux-gnu/asm/posix_types.h /usr/include/x86_64-linux-gnu/asm/posix_types_64.h /usr/include/asm-generic/posix_types.h /usr/include/x86_64-linux-gnu/asm/bitsperlong.h /usr/include/asm-generic/bitsperlong.h /usr/include/x86_64-linux-gnu/asm/sockios.h /usr/include/asm-generic/sockios.h /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h /usr/include/x86_64-linux-gnu/bits/socket2.h /usr/include/x86_64-linux-gnu/bits/in.h
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'fixdep'
-#  Last modified 2022-05-25 17:53:25.9464315
+#  Last modified 2022-05-29 18:12:37.7623103
 #  File has been updated.
 #  Successfully updated.
 # automatic
@@ -982,7 +989,8 @@ scripts/basic/fixdep: scripts/basic/fixdep.c FORCE /usr/include/stdc-predef.h /u
 # automatic
 # % := 
 # automatic
-# ^ := scripts/basic/fixdep.c FORCE /usr/include/stdc-predef.h /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/features.h /usr/include/features-time64.h /usr/include/x86_64-linux-gnu/bits/wordsize.h /usr/include/x86_64-linux-gnu/bits/timesize.h /usr/include/x86_64-linux-gnu/sys/cdefs.h /usr/include/x86_64-linux-gnu/bits/long-double.h /usr/include/x86_64-linux-gnu/gnu/stubs.h /usr/include/x86_64-linux-gnu/gnu/stubs-64.h /usr/include/x86_64-linux-gnu/bits/types.h /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/x86_64-linux-gnu/bits/time64.h /usr/include/x86_64-linux-gnu/bits/types/clock_t.h /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h /usr/include/x86_64-linux-gnu/bits/types/time_t.h /usr/include/x86_64-linux-gnu/bits/types/timer_t.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h /usr/include/x86_64-linux-gnu/bits/stdint-intn.h /usr/include/endian.h /usr/include/x86_64-linux-gnu/bits/endian.h /usr/include/x86_64-linux-gnu/bits/endianness.h /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/x86_64-linux-gnu/bits/uintn-identity.h /usr/include/x86_64-linux-gnu/sys/select.h /usr/include/x86_64-linux-gnu/bits/select.h /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h /usr/include/x86_64-linux-gnu/bits/select2.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h /usr/include/x86_64-linux-gnu/bits/struct_mutex.h /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/x86_64-linux-gnu/sys/stat.h /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/x86_64-linux-gnu/bits/struct_stat.h /usr/include/x86_64-linux-gnu/sys/mman.h /usr/include/x86_64-linux-gnu/bits/mman.h /usr/include/x86_64-linux-gnu/bits/mman-map-flags-generic.h /usr/include/x86_64-linux-gnu/bits/mman-linux.h /usr/include/x86_64-linux-gnu/bits/mman-shared.h /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h /usr/include/x86_64-linux-gnu/bits/environments.h /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/x86_64-linux-gnu/bits/getopt_posix.h /usr/include/x86_64-linux-gnu/bits/getopt_core.h /usr/include/x86_64-linux-gnu/bits/unistd.h /usr/include/x86_64-linux-gnu/bits/unistd_ext.h /usr/include/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h /usr/include/x86_64-linux-gnu/bits/fcntl2.h /usr/include/string.h /usr/include/x86_64-linux-gnu/bits/libc-header-start.h /usr/include/x86_64-linux-gnu/bits/types/locale_t.h /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h /usr/include/strings.h /usr/include/x86_64-linux-gnu/bits/strings_fortified.h /usr/include/x86_64-linux-gnu/bits/string_fortified.h /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/x86_64-linux-gnu/bits/floatn.h /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h /usr/include/x86_64-linux-gnu/bits/types/__FILE.h /usr/include/x86_64-linux-gnu/bits/types/FILE.h /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h /usr/include/x86_64-linux-gnu/bits/stdio_lim.h /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h /usr/include/x86_64-linux-gnu/bits/local_lim.h /usr/include/linux/limits.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h /usr/include/x86_64-linux-gnu/bits/posix2_lim.h /usr/include/ctype.h /usr/include/arpa/inet.h /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h /usr/include/x86_64-linux-gnu/sys/socket.h /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h /usr/include/x86_64-linux-gnu/bits/socket.h /usr/include/x86_64-linux-gnu/bits/socket_type.h /usr/include/x86_64-linux-gnu/bits/sockaddr.h /usr/include/x86_64-linux-gnu/asm/socket.h /usr/include/asm-generic/socket.h /usr/include/linux/posix_types.h /usr/include/linux/stddef.h /usr/include/x86_64-linux-gnu/asm/posix_types.h /usr/include/x86_64-linux-gnu/asm/posix_types_64.h /usr/include/asm-generic/posix_types.h /usr/include/x86_64-linux-gnu/asm/bitsperlong.h /usr/include/asm-generic/bitsperlong.h /usr/include/x86_64-linux-gnu/asm/sockios.h /usr/include/asm-generic/sockios.h /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h /usr/include/x86_64-linux-gnu/bits/socket2.h /usr/include/x86_64-linux-gnu/bits/in.h
+# ^ := scripts/basic/fixdep.c FORCE /usr/include/stdc-predef.h /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/features.h /usr/include/features-time64.h /usr/include/x86_64-linux-gnu/bits/wordsize.h /usr/include/x86_64-linux-gnu/bits/timesize.h /usr/include/x86_64-linux-gnu/sys/cdefs.h /usr/include/x86_64-linux-gnu/bits/long-double.h /usr/include/x86_64-linux-gnu/gnu/stubs.h /usr/include/x86_64-linux-gnu/gnu/stubs-64.h /usr/include/x86_64-linux-gnu/bits/types.h /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/x86_64-linux-gnu/bits/time64.h /usr/include/x86_64-linux-gnu/bits/types/clock_t.h /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h /usr/include/x86_64-linux-gnu/bits/types/time_t.h /usr/include/x86_64-linux-gnu/bits/types/timer_t.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h /usr/include/x86_64-linux-gnu/bits/stdint-intn.h /usr/include/endian.h /usr/include/x86_64-linux-gnu/bits/endian.h /usr/include/x86_64-linux-gnu/bits/endianness.h /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/x86_64-linux-gnu/bits/uintn-identity.h /usr/include/x86_64-linux-gnu/sys/select.h /usr/include/x86_64-linux-gnu/bits/select.h /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h /usr/include/x86_64-linux-gnu/bits/select2.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h /usr/include/x86_64-linux-gnu/bits/struct_mutex.h /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/x86_64-linux-gnu/sys/stat.h /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/x86_64-linux-gnu/bits/struct_stat.h /usr/include/x86_64-linux-gnu/sys/mman.h /usr/include/x86_64-linux-gnu/bits/mman.h /usr/include/x86_64-linux-gnu/bits/mman-map-flags-generic.h /usr/include/x86_64-linux-gnu/bits/mman-linux.h /usr/include/x86_64-linux-gnu/bits/mman-shared.h /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h /usr/include/x86_64-linux-gnu/bits/environments.h /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/x86_64-linux-gnu/bits/getopt_posix.h /usr/include/x86_64-linux-gnu/bits/getopt_core.h /usr/include/x86_64-linux-gnu/bits/unistd.h /usr/include/x86_64-linux-gnu/bits/unistd_ext.h /usr/include/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h /usr/include/x86_64-linux-gnu/bits/fcntl2.h /usr/include/string.h /usr/include/x86_64-linux-gnu/bits/libc-header-start.h /usr/include/x86_64-linux-gnu/bits/types/locale_t.h /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h /usr/include/strings.h /usr/include/x86_64-linux-gnu/bits/strings_fortified.h /usr/include/x86_64-linux-gnu/bits/string_fortified.h /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/x86_64-linux-gnu/bits/floatn.h /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h /usr/include/x86_64-linux-gnu/bits/types/__FILE.h /usr/include/x86_64-linux-gnu/bits/types/FILE.h /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h /usr/include/x86_64-linux-gnu/bits/stdio_lim.h /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h /usr/include/x86_64-linux-gnu/bits/local_lim.h /usr/include/linux/limits.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_mi 
+n-dynamic.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h /usr/include/x86_64-linux-gnu/bits/posix2_lim.h /usr/include/ctype.h /usr/include/arpa/inet.h /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h /usr/include/x86_64-linux-gnu/sys/socket.h /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h /usr/include/x86_64-linux-gnu/bits/socket.h /usr/include/x86_64-linux-gnu/bits/socket_type.h /usr/include/x86_64-linux-gnu/bits/sockaddr.h /usr/include/x86_64-linux-gnu/asm/socket.h /usr/include/asm-generic/socket.h /usr/include/linux/posix_types.h /usr/include/linux/stddef.h /usr/include/x86_64-linux-gnu/asm/posix_types.h /usr/include/x86_64-linux-gnu/asm/posix_types_64.h /usr/include/asm-generic/posix_types.h /usr/include/x86_64-linux-gnu/asm/bitsperlong.h /usr/include/asm-generic/bitsperlong.h /usr/include/x86_64-linux-gnu/asm/sockios.h /usr/include/asm-generic/sockios.h /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h /usr/include/x86_64-linux-gnu/bits/socket2.h /usr/include/x86_64-linux-gnu/bits/in.h
 # automatic
 # ? := FORCE
 # automatic
@@ -999,7 +1007,6 @@ scripts/basic/fixdep: scripts/basic/fixdep.c FORCE /usr/include/stdc-predef.h /u
 #  Successfully updated.
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
- 
 #  Implicit rule search has been done.
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
@@ -1144,10 +1151,10 @@ scripts/Kbuild.include:
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
 #  Successfully updated.
- 
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 #  Implicit rule search has been done.
+ 
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
 #  Successfully updated.
@@ -1242,7 +1249,7 @@ __build: scripts/basic/modules.order scripts/basic/fixdep
 scripts/basic/modules.order: FORCE
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
-#  Last modified 2022-05-25 17:53:30.9464315
+#  Last modified 2022-05-29 18:12:41.0223103
 #  File has been updated.
 #  Successfully updated.
 # automatic
@@ -1266,7 +1273,6 @@ scripts/basic/modules.order: FORCE
 #  recipe to execute (from 'scripts/Makefile.build', line 547):
 	$(Q)(cat /dev/null; $(modorder-cmds)) > $@
 
- 
 /usr/include/x86_64-linux-gnu/bits/string_fortified.h:
 #  Implicit rule search has been done.
 #  Last modified 2022-02-25 01:15:39
@@ -1296,6 +1302,7 @@ scripts/basic/Makefile:
 #  Implicit rule search has been done.
 #  Last modified 2022-05-25 16:27:36.2464315
 #  File has been updated.
+ 
 #  Successfully updated.
 
 /usr/include/x86_64-linux-gnu/bits/unistd.h:
@@ -1404,7 +1411,6 @@ scripts/basic/%-asn1.c:
 scripts/Makefile.lib:
 #  Implicit rule search has been done.
 #  Last modified 2022-05-25 16:27:35.9064315
- 
 #  File has been updated.
 #  Successfully updated.
 
@@ -1442,13 +1448,14 @@ scripts/basic/fixdep.c:
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 #  Implicit rule search has been done.
 #  Last modified 2022-02-25 01:15:39
+ 
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 scripts/basic/.fixdep.cmd:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-25 17:53:25.9564315
+#  Last modified 2022-05-29 18:12:37.7623103
 #  File has been updated.
 #  Successfully updated.
 
@@ -1550,7 +1557,6 @@ scripts/basic/.fixdep.cmd:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
 #  Successfully updated.
@@ -1644,6 +1650,7 @@ include/config/auto.conf:
 
 /usr/include/stdio.h:
 #  Implicit rule search has been done.
+ 
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
 #  Successfully updated.
@@ -1676,7 +1683,6 @@ include/config/auto.conf:
 #  Implicit rule search has been done.
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
- 
 #  Successfully updated.
 
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
@@ -1833,7 +1839,6 @@ scripts/Makefile.build:
 #  Implicit rule search has been done.
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
- 
 #  Successfully updated.
 
 # files hash-table stats:
@@ -1844,13 +1849,13 @@ scripts/Makefile.build:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 169 / storage = 6117 B / avg = 36 B
-# current buf: size = 8162 B / used = 6117 B / count = 169 / avg = 36 B
+# strcache buffers: 1 (0) / strings = 170 / storage = 6131 B / avg = 36 B
+# current buf: size = 8162 B / used = 6131 B / count = 170 / avg = 36 B
 
-# strcache performance: lookups = 461 / hit rate = 63%
+# strcache performance: lookups = 462 / hit rate = 63%
 # hash-table stats:
-# Load=169/8192=2%, Rehash=0, Collisions=15/461=3%
-# Finished Make data base on Wed May 25 17:53:30 2022
+# Load=170/8192=2%, Rehash=0, Collisions=15/462=3%
+# Finished Make data base on Sun May 29 18:12:41 2022
 
  
 scripts/kconfig/conf  --silentoldconfig Kconfig
@@ -1877,7 +1882,7 @@ make[2]: *** [scripts/kconfig/Makefile:40: silentoldconfig] Error 1
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed May 25 17:53:31 2022
+# Make data base, printed on Sun May 29 18:12:41 2022
 
 # Variables
 
@@ -1928,8 +1933,7 @@ TMPOUT :=
 # makefile (from 'scripts/Makefile.lib', line 277)
 DTC = $(objtree)/scripts/dtc/dtc
 # makefile (from 'scripts/kconfig/.zconf.tab.o.cmd', line 5)
-deps_scripts/kconfig/zconf.tab.o := /usr/include/stdc-predef.h /usr/include/ctype.h /usr/include/features.h /usr/include/features-time64.h /usr/include/x86_64-linux-gnu/bits/wordsize.h /usr/include/x86_64-linux-gnu/bits/timesize.h /usr/include/x86_64-linux-gnu/sys/cdefs.h /usr/include/x86_64-linux-gnu/bits/long-double.h /usr/include/x86_64-linux-gnu/gnu/stubs.h /usr/include/x86_64-linux-gnu/gnu/stubs-64.h /usr/include/x86_64-linux-gnu/bits/types.h /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/x86_64-linux-gnu/bits/time64.h /usr/include/x86_64-linux-gnu/bits/endian.h /usr/include/x86_64-linux-gnu/bits/endianness.h /usr/include/x86_64-linux-gnu/bits/types/locale_t.h /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/libc-header-start.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h /usr/include/x86_64-linux-gnu/bits/types/__FILE.h /usr/include/x86_64-linux-gnu/bits/types/FILE.h /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h /usr/include/x86_64-linux-gnu/bits/stdio_lim.h /usr/include/x86_64-linux-gnu/bits/floatn.h /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/x86_64-linux-gnu/bits/types/clock_t.h /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h /usr/include/x86_64-linux-gnu/bits/types/time_t.h /usr/include/x86_64-linux-gnu/bits/types/timer_t.h /usr/include/x86_64-linux-gnu/bits/stdint-intn.h /usr/include/endian.h /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/x86_64-linux-gnu/bits/uintn-identity.h /usr/include/x86_64-linux-gnu/sys/select.h /usr/include/x86_64-linux-gnu/bits/select.h /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h /usr/include/x86_64-linux-gnu/bits/select2.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h /usr/include/x86_64-linux-gnu/bits/struct_mutex.h /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/string.h /usr/include/strings.h /usr/include/x86_64-linux-gnu/bits/strings_fortified.h /usr/include/x86_64-linux-gnu/bits/string_fortified.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h scripts/kconfig/lkc.h    scripts/kconfig/expr.h  /usr/include/assert.h scripts/kconfig/list.h /usr/include/libintl.h /usr/include/locale.h /usr/include/x86_64-linux-gnu/bits/locale.h scripts/kconfig/lkc_proto.h scripts/kconfig/kconf_id.c scripts/kconfig/zconf.lex.c /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h /usr/include/x86_64-linux-gnu/bits/local_lim.h /usr/include/linux/limits.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h /usr/include/x86_64-linux-gnu/bits/posix2_lim.h /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h /usr/include/x86_64-linux-gnu/bits/environments.h /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/x86_64-linux-gnu/bits/getopt_posix.h /usr/include/ 
-x86_64-linux-gnu/bits/getopt_core.h /usr/include/x86_64-linux-gnu/bits/unistd.h /usr/include/x86_64-linux-gnu/bits/unistd_ext.h scripts/kconfig/util.c scripts/kconfig/confdata.c      /usr/include/x86_64-linux-gnu/sys/stat.h /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/x86_64-linux-gnu/bits/struct_stat.h /usr/include/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h /usr/include/x86_64-linux-gnu/bits/fcntl2.h /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h scripts/kconfig/expr.c scripts/kconfig/symbol.c /usr/include/regex.h /usr/include/x86_64-linux-gnu/sys/utsname.h /usr/include/x86_64-linux-gnu/bits/utsname.h scripts/kconfig/menu.c 
+deps_scripts/kconfig/zconf.tab.o := /usr/include/stdc-predef.h /usr/include/ctype.h /usr/include/features.h /usr/include/features-time64.h /usr/include/x86_64-linux-gnu/bits/wordsize.h /usr/include/x86_64-linux-gnu/bits/timesize.h /usr/include/x86_64-linux-gnu/sys/cdefs.h /usr/include/x86_64-linux-gnu/bits/long-double.h /usr/include/x86_64-linux-gnu/gnu/stubs.h /usr/include/x86_64-linux-gnu/gnu/stubs-64.h /usr/include/x86_64-linux-gnu/bits/types.h /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/x86_64-linux-gnu/bits/time64.h /usr/include/x86_64-linux-gnu/bits/endian.h /usr/include/x86_64-linux-gnu/bits/endianness.h /usr/include/x86_64-linux-gnu/bits/types/locale_t.h /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/libc-header-start.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h /usr/include/x86_64-linux-gnu/bits/types/__FILE.h /usr/include/x86_64-linux-gnu/bits/types/FILE.h /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h /usr/include/x86_64-linux-gnu/bits/stdio_lim.h /usr/include/x86_64-linux-gnu/bits/floatn.h /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/x86_64-linux-gnu/bits/types/clock_t.h /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h /usr/include/x86_64-linux-gnu/bits/types/time_t.h /usr/include/x86_64-linux-gnu/bits/types/timer_t.h /usr/include/x86_64-linux-gnu/bits/stdint-intn.h /usr/include/endian.h /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/x86_64-linux-gnu/bits/uintn-identity.h /usr/include/x86_64-linux-gnu/sys/select.h /usr/include/x86_64-linux-gnu/bits/select.h /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h /usr/include/x86_64-linux-gnu/bits/select2.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h /usr/include/x86_64-linux-gnu/bits/struct_mutex.h /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/string.h /usr/include/strings.h /usr/include/x86_64-linux-gnu/bits/strings_fortified.h /usr/include/x86_64-linux-gnu/bits/string_fortified.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h scripts/kconfig/lkc.h    scripts/kconfig/expr.h  /usr/include/assert.h scripts/kconfig/list.h /usr/include/libintl.h /usr/include/locale.h /usr/include/x86_64-linux-gnu/bits/locale.h scripts/kconfig/lkc_proto.h scripts/kconfig/kconf_id.c scripts/kconfig/zconf.lex.c /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h /usr/include/x86_64-linux-gnu/bits/local_lim.h /usr/include/linux/limits.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h /usr/include/x86_64-linux-gnu/bits/posix2_lim.h /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h /usr/include/x86_64-linux-gnu/bits/environments.h /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/x86_64-linux-gnu/bits/getopt_posix.h /usr/include/x86_64-linux-gnu/bits/getopt_core.h /usr/include/x86_64-linux-gnu/bits/unistd.h /usr/include/x86_64-linux-gnu/bits/unistd_ext.h scripts/kconfig/util.c scripts/kconfig/confdata.c      /usr/include/x86_64-linux-gnu/sys/stat.h /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/x86_64-linux-gnu/bits/struct_stat.h /usr/include/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h /usr/include/x86_64-linux-gnu/bits/fcntl2.h /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h scripts/kconfig/expr.c scripts/kconfig/symbol.c /usr/include/regex.h /usr/include/x86_64-linux-gnu/sys/utsname.h /usr/include/x86_64-linux-gnu/bits/utsname.h scripts/kconfig/menu.c 
 # environment
 HOSTCC = gcc
 # makefile (from 'scripts/Makefile.lib', line 265)
@@ -1967,7 +1971,7 @@ subdir-ym :=
 # environment
 RETPOLINE_VDSO_CFLAGS = 
 # environment
-KBUILD_CFLAGS = -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -Werror -std=gnu89 -DANDROID_VERSION=990000 --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as -mno-implicit-float -DCONFIG_AS_LSE=1  -fno-asynchronous-unwind-tables -fno-pic -Wno-asm-operand-widths
+KBUILD_CFLAGS = -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -Werror -std=gnu89 -DANDROID_VERSION=990000 -mgeneral-regs-only   -fno-asynchronous-unwind-tables -fno-pic
 # makefile (from 'scripts/Makefile.lib', line 271)
 quiet_cmd_gzip = GZIP    $@
 # makefile (from 'scripts/Kbuild.include', line 172)
@@ -2011,7 +2015,7 @@ quiet_cmd_host-cxxshlib = HOSTLLD -shared $@
 # makefile (from 'scripts/Makefile.build', line 394)
 cmd_gensymtypes_S = (echo "#include <linux/kernel.h>" ; echo "#include <asm/asm-prototypes.h>" ; $(CPP) $(a_flags) $< | grep "\<___EXPORT_SYMBOL\>" | sed 's/.*___EXPORT_SYMBOL[[:space:]]*\([a-zA-Z0-9_]*\)[[:space:]]*,.*/EXPORT_SYMBOL(\1);/' ) | $(CPP) -D__GENKSYMS__ $(c_flags) -xc - | $(GENKSYMS) $(if $(1), -T $(2)) $(patsubst y,-s _,$(CONFIG_HAVE_UNDERSCORE_SYMBOL_PREFIX)) $(patsubst y,-R,$(CONFIG_MODULE_REL_CRCS)) $(if $(KBUILD_PRESERVE),-p) -r $(firstword $(wildcard $(2:.symtypes=.symref) /dev/null))
 # environment
-KBUILD_AFLAGS = -D__ASSEMBLY__ --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as -DCONFIG_AS_LSE=1 
+KBUILD_AFLAGS = -D__ASSEMBLY__  
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # makefile (from 'scripts/Makefile.lib', line 389)
@@ -2041,7 +2045,7 @@ gcc-ifversion = $(call __cc-ifversion, gcc, $(1), $(2), $(3), $(4))
 # environment
 PWD = /root/kernel/SAMSUNG-M31-KERNEL-SOURCE
 # environment
-CFLAGS_KCOV = -fsanitize-coverage=trace-pc
+CFLAGS_KCOV = 
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # makefile (from 'scripts/Kbuild.include', line 230)
@@ -2068,6 +2072,7 @@ OLDPWD = /mnt/c/Program Files/Microsoft VS Code
 quiet_cmd_lzma = LZMA    $@
 # makefile (from 'scripts/Kbuild.include', line 39)
 kecho := echo
+ 
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
@@ -2113,7 +2118,7 @@ cmd = @$(echo-cmd) $(cmd_$(1))
 # makefile (from 'scripts/Makefile.build', line 649)
 cmd_link_multi-m = $(cmd_link_multi-link)
 # environment
-KBUILD_ARFLAGS = D
+KBUILD_ARFLAGS = 
 # makefile (from 'scripts/Makefile.build', line 157)
 quiet_cmd_cpp_i_c = CPP $(quiet_modtag) $@
 # makefile (from 'scripts/Makefile.lib', line 165)
@@ -2273,7 +2278,6 @@ quiet_cmd_link_multi-y = LD      $@
 # makefile (from 'scripts/Makefile.lib', line 83)
 real-objs-y := 
 # makefile (from 'scripts/Makefile.build', line 44)
- 
 kbuild-file := ./scripts/kconfig/Makefile
 # environment
 INSTALL_DTBS_PATH = /boot/dtbs/
@@ -2325,8 +2329,6 @@ SHELL = /bin/sh
 nconf-objs := nconf.o zconf.tab.o nconf.gui.o
 # makefile (from 'scripts/Makefile.lib', line 75)
 extra-y := 
-# environment
-CLANG_FLAGS = --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as
 # default
 MAKECMDGOALS := silentoldconfig
 # makefile (from 'scripts/Makefile.lib', line 259)
@@ -2348,6 +2350,7 @@ UIMAGE_NAME = 'Linux-$(KERNELRELEASE)'
 # environment
 MAKELEVEL := 2
 # environment
+ 
 OBJDUMP = ./toolchain/gcc/bin/aarch64-linux-android-objdump
 # environment
 MAKE = make
@@ -2492,7 +2495,7 @@ KBUILD_CPPFLAGS = -D__KERNEL__ -mlittle-endian
 # makefile (from 'scripts/Kbuild.include', line 24)
 basetarget = $(basename $(notdir $@))
 # environment
-WSL_INTEROP = /run/WSL/5484_interop
+WSL_INTEROP = /run/WSL/14915_interop
 # makefile (from 'scripts/Makefile.build', line 423)
 quiet_cmd_as_o_S = AS $(quiet_modtag)  $@
 # 'override' directive
@@ -2547,7 +2550,6 @@ EXTRA_CFLAGS :=
 ARCH = arm64
 # makefile (from 'scripts/Kbuild.include', line 313)
 if_changed = $(if $(strip $(any-prereq) $(arg-check)), @set -e; $(echo-cmd) $(cmd_$(1)); printf '%s\n' 'cmd_$@ := $(make-cmd)' > $(dot-target).cmd, @:)
- 
 # makefile (from 'scripts/kconfig/Makefile', line 115)
 configfiles = $(wildcard $(srctree)/kernel/configs/$@ $(srctree)/arch/$(SRCARCH)/configs/$@)
 # makefile (from 'scripts/Kbuild.include', line 194)
@@ -2645,8 +2647,9 @@ rule_cc_o_c = 	$(call echo-cmd,checksrc) $(cmd_checksrc) $(call cmd_and_fixdep,c
 # environment
 KBUILD_KCONFIG = 
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-0d9fed91-e1e9-4a1b-b103-5acd34cbf9b5.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-fd04c72f-3af5-4bf1-b567-03d88b36451f.sock
 # makefile (from 'scripts/Kbuild.include', line 169)
+ 
 gcc-if-fullversion = (call __cc-if-fullversion, gcc, $(1), $(2), $(3), $(4))
 # makefile (from 'scripts/Kbuild.include', line 218)
 ld-ifversion = $(shell [ $(ld-version) $(1) $(2) ] && echo $(3) || echo $(4))
@@ -2805,7 +2808,7 @@ obj = scripts/kconfig
 # environment
 LDFLAGS_vmlinux = --no-undefined -X
 # variable set hash-table stats:
-# Load=454/1024=44%, Rehash=0, Collisions=486/1133=43%
+# Load=453/1024=44%, Rehash=0, Collisions=486/1132=43%
 
 # Pattern-specific Variable Values
 
@@ -2829,7 +2832,6 @@ LDFLAGS_vmlinux = --no-undefined -X
 	$(Q)$(CONFIG_SHELL) $(srctree)/scripts/kconfig/merge_config.sh -m .config $(configfiles)
 	+$(Q)yes "" | $(MAKE) -f $(srctree)/Makefile oldconfig
 
- 
 scripts/kconfig/%.moc: scripts/kconfig/%.h scripts/kconfig/.tmp_qtcheck
 #  recipe to execute (from 'scripts/kconfig/Makefile', line 292):
 	$(call cmd,moc)
@@ -2913,7 +2915,7 @@ scripts/kconfig/%-asn1.c scripts/kconfig/%-asn1.h: scripts/kconfig/%.asn1 script
 # Not a target:
 scripts/kconfig/.zconf.tab.o.cmd:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-25 17:53:29.0964315
+#  Last modified 2022-05-29 18:12:40.7123103
 #  File has been updated.
 #  Successfully updated.
 
@@ -2938,6 +2940,7 @@ kvmconfig: kvm_guest.config
 	@:
 
 # Not a target:
+ 
 scripts/kconfig/nconf.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -3123,11 +3126,10 @@ localmodconfig: scripts/kconfig/streamline_config.pl scripts/kconfig/conf
 #  File has been updated.
 #  Successfully updated.
 
- 
 scripts/kconfig/conf: FORCE scripts/kconfig/conf.o scripts/kconfig/zconf.tab.o
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
-#  Last modified 2022-05-25 17:53:29.2164315
+#  Last modified 2022-05-29 18:12:40.7923103
 #  File has been updated.
 #  Successfully updated.
 # automatic
@@ -3216,7 +3218,7 @@ silentoldconfig: scripts/kconfig/conf
 # Not a target:
 scripts/kconfig/.conf.o.cmd:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-25 17:53:26.8364315
+#  Last modified 2022-05-29 18:12:38.5423103
 #  File has been updated.
 #  Successfully updated.
 
@@ -3237,7 +3239,7 @@ gconfig: scripts/kconfig/gconf
 scripts/kconfig/zconf.lex.c: scripts/kconfig/zconf.lex.c_shipped
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'zconf.lex.c'
-#  Last modified 2022-05-25 17:53:26.8364315
+#  Last modified 2022-05-29 18:12:38.5523103
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'scripts/Makefile.lib', line 242):
@@ -3291,7 +3293,7 @@ scripts/kconfig/gconf.c:
 scripts/kconfig/zconf.tab.c: scripts/kconfig/zconf.tab.c_shipped
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'zconf.tab.c'
-#  Last modified 2022-05-25 17:53:26.8364315
+#  Last modified 2022-05-29 18:12:38.5523103
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'scripts/Makefile.lib', line 242):
@@ -3393,6 +3395,7 @@ scripts/kconfig/qconf.cc:
 #  File has been updated.
 #  Successfully updated.
 
+ 
 oldnoconfig: olddefconfig
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -3417,7 +3420,6 @@ oldnoconfig: olddefconfig
 #  File has been updated.
 #  Successfully updated.
 
- 
 /usr/include/x86_64-linux-gnu/bits/unistd.h:
 #  Implicit rule search has been done.
 #  Last modified 2022-02-25 01:15:39
@@ -3523,7 +3525,7 @@ allyesconfig: scripts/kconfig/conf
 scripts/kconfig/zconf.tab.o: scripts/kconfig/zconf.tab.c FORCE scripts/kconfig/zconf.lex.c /usr/include/stdc-predef.h /usr/include/ctype.h /usr/include/features.h /usr/include/features-time64.h /usr/include/x86_64-linux-gnu/bits/wordsize.h /usr/include/x86_64-linux-gnu/bits/timesize.h /usr/include/x86_64-linux-gnu/sys/cdefs.h /usr/include/x86_64-linux-gnu/bits/long-double.h /usr/include/x86_64-linux-gnu/gnu/stubs.h /usr/include/x86_64-linux-gnu/gnu/stubs-64.h /usr/include/x86_64-linux-gnu/bits/types.h /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/x86_64-linux-gnu/bits/time64.h /usr/include/x86_64-linux-gnu/bits/endian.h /usr/include/x86_64-linux-gnu/bits/endianness.h /usr/include/x86_64-linux-gnu/bits/types/locale_t.h /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/libc-header-start.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h /usr/include/x86_64-linux-gnu/bits/types/__FILE.h /usr/include/x86_64-linux-gnu/bits/types/FILE.h /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h /usr/include/x86_64-linux-gnu/bits/stdio_lim.h /usr/include/x86_64-linux-gnu/bits/floatn.h /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/x86_64-linux-gnu/bits/types/clock_t.h /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h /usr/include/x86_64-linux-gnu/bits/types/time_t.h /usr/include/x86_64-linux-gnu/bits/types/timer_t.h /usr/include/x86_64-linux-gnu/bits/stdint-intn.h /usr/include/endian.h /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/x86_64-linux-gnu/bits/uintn-identity.h /usr/include/x86_64-linux-gnu/sys/select.h /usr/include/x86_64-linux-gnu/bits/select.h /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h /usr/include/x86_64-linux-gnu/bits/select2.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h /usr/include/x86_64-linux-gnu/bits/struct_mutex.h /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/string.h /usr/include/strings.h /usr/include/x86_64-linux-gnu/bits/strings_fortified.h /usr/include/x86_64-linux-gnu/bits/string_fortified.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h scripts/kconfig/lkc.h scripts/kconfig/expr.h /usr/include/assert.h scripts/kconfig/list.h /usr/include/libintl.h /usr/include/locale.h /usr/include/x86_64-linux-gnu/bits/locale.h scripts/kconfig/lkc_proto.h scripts/kconfig/kconf_id.c scripts/kconfig/zconf.lex.c /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h /usr/include/x86_64-linux-gnu/bits/local_lim.h /usr/include/linux/limits.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h /usr/include/x86_64-linux-gnu/bits/posix2_lim.h /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h /usr/include/x86_64-linux-gnu/bits/environments.h /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/x86_64-linux-gnu/bits/getopt_posix.h /usr/include/x86_64-linux-gnu/bits/getopt_core.h /usr/include/x86_64-linux-gnu/bits/unistd.h /usr/include/x86_64-linux-gnu/bits/unistd_ext.h scripts/kconfig/util.c scripts/kconfig/confdata.c /usr/include/x86_64-linux-gnu/sys/stat.h /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/x86_64-linux-gnu/bits/struct_stat.h /usr/include/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h /usr/include/x86_64-linux-gnu/bits/fcntl2.h /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h scripts/kconfig/expr.c scripts/kconfig/symbol.c /usr/include/regex.h /usr/include/x86_64-linux-gnu/sys/utsname.h /usr/include/x86_64-linux-gnu/bits/utsname.h scripts/kconfig/menu.c
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'zconf.tab'
-#  Last modified 2022-05-25 17:53:29.0964315
+#  Last modified 2022-05-29 18:12:40.7123103
 #  File has been updated.
 #  Successfully updated.
 # automatic
@@ -3556,7 +3558,6 @@ scripts/kconfig/zconf.tab.o: scripts/kconfig/zconf.tab.c FORCE scripts/kconfig/z
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 #  Implicit rule search has been done.
 #  Last modified 2022-02-25 01:15:39
- 
 #  File has been updated.
 #  Successfully updated.
 
@@ -3635,6 +3636,7 @@ scripts/kconfig/qconf.moc:
 #  File has not been updated.
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
+ 
 #  Implicit rule search has been done.
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
@@ -3837,7 +3839,6 @@ scripts/kconfig/%-asn1.h:
 
 /usr/include/fcntl.h:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
 #  Successfully updated.
@@ -4033,6 +4034,7 @@ include/config/auto.conf:
 scripts/kconfig/lxdialog/inputbox.o: scripts/kconfig/lxdialog/inputbox.c FORCE scripts/kconfig/dochecklxdialog
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'lxdialog/inputbox'
+ 
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'scripts/Makefile.host', line 119):
@@ -4129,7 +4131,6 @@ scripts/kconfig/kxgettext: FORCE scripts/kconfig/kxgettext.o scripts/kconfig/zco
 #  recipe to execute (from 'scripts/Makefile.host', line 111):
 	$(call if_changed,host-cmulti)
 
- 
 xenconfig: xen.config
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -4183,7 +4184,7 @@ scripts/kconfig/symbol.c:
 scripts/kconfig/conf.o: scripts/kconfig/conf.c FORCE /usr/include/stdc-predef.h /usr/include/locale.h /usr/include/features.h /usr/include/features-time64.h /usr/include/x86_64-linux-gnu/bits/wordsize.h /usr/include/x86_64-linux-gnu/bits/timesize.h /usr/include/x86_64-linux-gnu/sys/cdefs.h /usr/include/x86_64-linux-gnu/bits/long-double.h /usr/include/x86_64-linux-gnu/gnu/stubs.h /usr/include/x86_64-linux-gnu/gnu/stubs-64.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/x86_64-linux-gnu/bits/types/locale_t.h /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h /usr/include/ctype.h /usr/include/x86_64-linux-gnu/bits/types.h /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/x86_64-linux-gnu/bits/time64.h /usr/include/x86_64-linux-gnu/bits/endian.h /usr/include/x86_64-linux-gnu/bits/endianness.h /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/libc-header-start.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h /usr/include/x86_64-linux-gnu/bits/local_lim.h /usr/include/linux/limits.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h /usr/include/x86_64-linux-gnu/bits/posix2_lim.h /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h /usr/include/x86_64-linux-gnu/bits/types/__FILE.h /usr/include/x86_64-linux-gnu/bits/types/FILE.h /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h /usr/include/x86_64-linux-gnu/bits/stdio_lim.h /usr/include/x86_64-linux-gnu/bits/floatn.h /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/x86_64-linux-gnu/bits/types/clock_t.h /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h /usr/include/x86_64-linux-gnu/bits/types/time_t.h /usr/include/x86_64-linux-gnu/bits/types/timer_t.h /usr/include/x86_64-linux-gnu/bits/stdint-intn.h /usr/include/endian.h /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/x86_64-linux-gnu/bits/uintn-identity.h /usr/include/x86_64-linux-gnu/sys/select.h /usr/include/x86_64-linux-gnu/bits/select.h /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h /usr/include/x86_64-linux-gnu/bits/select2.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h /usr/include/x86_64-linux-gnu/bits/struct_mutex.h /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/string.h /usr/include/strings.h /usr/include/x86_64-linux-gnu/bits/strings_fortified.h /usr/include/x86_64-linux-gnu/bits/string_fortified.h /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h /usr/include/x86_64-linux-gnu/bits/environments.h /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/x86_64-linux-gnu/bits/getopt_posix.h /usr/include/x86_64-linux-gnu/bits/getopt_core.h /usr/include/x86_64-linux-gnu/bits/unistd.h /usr/include/x86_64-linux-gnu/bits/unistd_ext.h /usr/include/getopt.h /usr/include/x86_64-linux-gnu/bits/getopt_ext.h /usr/include/x86_64-linux-gnu/sys/stat.h /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/x86_64-linux-gnu/bits/struct_stat.h /usr/include/x86_64-linux-gnu/sys/time.h /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h scripts/kconfig/lkc.h scripts/kconfig/expr.h /usr/include/assert.h scripts/kconfig/list.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h /usr/include/libintl.h scripts/kconfig/lkc_proto.h
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'conf'
-#  Last modified 2022-05-25 17:53:26.8264315
+#  Last modified 2022-05-29 18:12:38.5423103
 #  File has been updated.
 #  Successfully updated.
 # automatic
@@ -4245,6 +4246,7 @@ scripts/kconfig/lxdialog/util.c:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
 #  Implicit rule search has been done.
+ 
 #  Last modified 2021-09-23 12:12:18
 #  File has been updated.
 #  Successfully updated.
@@ -4324,7 +4326,6 @@ scripts/kconfig/lxdialog/textbox.o: scripts/kconfig/lxdialog/textbox.c FORCE scr
 
 /usr/include/libintl.h:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-02-25 01:15:39
 #  File has been updated.
 #  Successfully updated.
@@ -4368,7 +4369,7 @@ scripts/kconfig/lxdialog/textbox.o: scripts/kconfig/lxdialog/textbox.c FORCE scr
 # Not a target:
 scripts/kconfig/.conf.cmd:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-25 17:53:29.2164315
+#  Last modified 2022-05-29 18:12:40.7923103
 #  File has been updated.
 #  Successfully updated.
 
@@ -4418,7 +4419,7 @@ scripts/kconfig/nconf.gui.c:
 # strcache performance: lookups = 1101 / hit rate = 70%
 # hash-table stats:
 # Load=323/8192=4%, Rehash=0, Collisions=27/1101=2%
-# Finished Make data base on Wed May 25 17:53:31 2022
+# Finished Make data base on Sun May 29 18:12:41 2022
 
  
 # GNU Make 4.3
@@ -4428,7 +4429,7 @@ scripts/kconfig/nconf.gui.c:
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed May 25 17:53:31 2022
+# Make data base, printed on Sun May 29 18:12:41 2022
 
 # Variables
 
@@ -4488,14 +4489,12 @@ VSCODE_CWD = /mnt/c/Program Files/Microsoft VS Code
 PYTHON = python
 # makefile (from 'Makefile', line 536)
 RETPOLINE_VDSO_CFLAGS := 
-# makefile (from 'arch/arm64/Makefile', line 128)
-KBUILD_CFLAGS := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -Werror -std=gnu89 -DANDROID_VERSION=990000 --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as -mno-implicit-float -DCONFIG_AS_LSE=1  -fno-asynchronous-unwind-tables -fno-pic -Wno-asm-operand-widths
-# makefile (from 'Makefile', line 518)
-GCC_TOOLCHAIN_DIR := ./toolchain/gcc/bin/
-# makefile (from 'scripts/Kbuild.include', line 172)
-clang-ifversion = $(call __cc-ifversion, clang, $(1), $(2), $(3), $(4))
+# makefile (from 'arch/arm64/Makefile', line 71)
+KBUILD_CFLAGS := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -Werror -std=gnu89 -DANDROID_VERSION=990000 -mgeneral-regs-only   -fno-asynchronous-unwind-tables -fno-pic
 # makefile (from 'Makefile', line 1776)
 CHECKSTACK_ARCH := arm64
+# makefile (from 'scripts/Kbuild.include', line 172)
+clang-ifversion = $(call __cc-ifversion, clang, $(1), $(2), $(3), $(4))
 # makefile (from 'Makefile', line 389)
 PERL = perl
 # makefile (from 'scripts/Kbuild.include', line 214)
@@ -4503,9 +4502,6 @@ ld-version = $(shell $(LD) --version | $(srctree)/scripts/ld-version.sh)
 # makefile (from 'Makefile', line 402)
 AFLAGS_MODULE = 
 # makefile (from 'scripts/Kbuild.include', line 175)
- 
-make[1]: *** [Makefile:555: silentoldconfig] Error 2
-
 clang-if-fullversion = (call __cc-if-fullversion, clang, $(1), $(2), $(3), $(4))
 # makefile (from 'scripts/Kbuild.include', line 438)
 define config_filename
@@ -4522,9 +4518,7 @@ endif
 endif
 endef
 # makefile (from 'arch/arm64/Makefile', line 45)
-lseinstr := -DCONFIG_AS_LSE=1
-# makefile (from 'Makefile', line 520)
-GCC_TOOLCHAIN := /root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc
+lseinstr := 
 # default
 MAKE_COMMAND := make
 # environment
@@ -4534,7 +4528,7 @@ TEXT_OFFSET := 0x00080000
 # makefile (from 'Makefile', line 1864)
 cmd_depmod = $(CONFIG_SHELL) $(srctree)/scripts/depmod.sh $(DEPMOD) $(KERNELRELEASE) "$(patsubst y,_,$(CONFIG_HAVE_UNDERSCORE_SYMBOL_PREFIX))"
 # makefile (from 'arch/arm64/Makefile', line 72)
-KBUILD_AFLAGS := -D__ASSEMBLY__ --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as -DCONFIG_AS_LSE=1 
+KBUILD_AFLAGS := -D__ASSEMBLY__  
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # makefile (from 'Makefile', line 362)
@@ -4554,7 +4548,7 @@ gcc-ifversion = $(call __cc-ifversion, gcc, $(1), $(2), $(3), $(4))
 # environment
 PWD = /root/kernel/SAMSUNG-M31-KERNEL-SOURCE
 # environment
-CFLAGS_KCOV = -fsanitize-coverage=trace-pc
+CFLAGS_KCOV = 
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # makefile (from 'scripts/Kbuild.include', line 230)
@@ -4600,8 +4594,11 @@ cmd = @$(echo-cmd) $(cmd_$(1))
 # makefile (from 'Makefile', line 220)
 version_h := include/generated/uapi/linux/version.h
 # environment
-KBUILD_ARFLAGS = D
+KBUILD_ARFLAGS = 
 # makefile (from 'Makefile', line 460)
+ 
+make[1]: *** [Makefile:555: silentoldconfig] Error 2
+
 RCS_FIND_IGNORE := \( -name SCCS -o -name BitKeeper -o -name .svn -o -name CVS -o -name .pc -o -name .hg -o -name .git \) -prune -o
 # environment
 KBUILD_CHECKSRC = 0
@@ -4717,8 +4714,6 @@ any-prereq = $(filter-out $(PHONY),$?) $(filter-out $(PHONY) $(wildcard $^),$^)
 MAKE_HOST := x86_64-pc-linux-gnu
 # makefile
 SHELL = /bin/sh
-# makefile (from 'Makefile', line 525)
-CLANG_FLAGS := --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as
 # makefile (from 'arch/arm64/Makefile', line 145)
 libs-y := arch/arm64/lib/ 
 # default
@@ -4759,8 +4754,6 @@ KBUILD_MODULES = 1
 target-dir = $(dir $@)
 # makefile (from 'Makefile', line 204)
 objtree := .
-# makefile (from 'Makefile', line 513)
-CLANG_TRIPLE = $(srctree)/toolchain/gnu/bin/aarch64-linux-gnu-
 # makefile (from 'scripts/Kbuild.include', line 144)
 cc-name = $(shell $(CC) -v 2>&1 | grep -q "clang version" && echo clang || echo gcc)
 # makefile (from 'scripts/Kbuild.include', line 5)
@@ -4805,7 +4798,6 @@ build := -f ./scripts/Makefile.build obj
 VSCODE_LOG_NATIVE = false
 # makefile (from 'arch/arm64/Makefile', line 42)
 KBUILD_DEFCONFIG := defconfig
- 
 # makefile (from 'Makefile', line 532)
 RETPOLINE_VDSO_CFLAGS_GCC := -mindirect-branch=thunk-inline -mindirect-branch-register
 # makefile (from 'Makefile', line 1875)
@@ -4853,7 +4845,7 @@ KBUILD_CPPFLAGS := -D__KERNEL__ -mlittle-endian
 # makefile (from 'scripts/Kbuild.include', line 24)
 basetarget = $(basename $(notdir $@))
 # environment
-WSL_INTEROP = /run/WSL/5484_interop
+WSL_INTEROP = /run/WSL/14915_interop
 # 'override' directive
 GNUMAKEFLAGS := 
 # makefile (from 'Makefile', line 1884)
@@ -4902,6 +4894,7 @@ quiet_cmd_rmdirs = $(if $(wildcard $(rm-dirs)),CLEAN   $(wildcard $(rm-dirs)))
 cc-ldoption = $(call try-run, $(CC) $(1) $(KBUILD_CPPFLAGS) $(CC_OPTION_CFLAGS) -nostdlib -x c /dev/null -o "$$TMP",$(1),$(2))
 # environment
 DISPLAY = :0
+ 
 # environment
 USER = root
 # default
@@ -4939,7 +4932,7 @@ objectify = $(foreach o,$(1),$(if $(filter /%,$(o)),$(o),$(obj)/$(o)))
 # makefile (from 'Makefile', line 549)
 KBUILD_KCONFIG := 
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-0d9fed91-e1e9-4a1b-b103-5acd34cbf9b5.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-fd04c72f-3af5-4bf1-b567-03d88b36451f.sock
 # makefile (from 'scripts/Kbuild.include', line 169)
 gcc-if-fullversion = (call __cc-if-fullversion, gcc, $(1), $(2), $(3), $(4))
 # makefile (from 'scripts/Kbuild.include', line 218)
@@ -5033,7 +5026,7 @@ obj := .
 # makefile (from 'arch/arm64/Makefile', line 13)
 LDFLAGS_vmlinux := --no-undefined -X
 # variable set hash-table stats:
-# Load=287/1024=28%, Rehash=0, Collisions=167/972=17%
+# Load=283/1024=28%, Rehash=0, Collisions=154/913=17%
 
 # Pattern-specific Variable Values
 
@@ -5114,6 +5107,7 @@ tools/%: FORCE
 #  recipe to execute (from 'Makefile', line 1848):
 	$(cmd_crmodverdir)
 	$(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1)   \
+ 
 	$(build)=$(build-dir) $(@:.ko=.o)
 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modpost
 
@@ -5138,7 +5132,6 @@ vdso_prepare: prepare0
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'arch/arm64/Makefile', line 207):
- 
 	$(Q)$(MAKE) $(build)=arch/arm64/kernel/vdso include/generated/vdso-offsets.h
 
 scripts/Kbuild.include:
@@ -5286,6 +5279,7 @@ Image: vmlinux
 #  recipe to execute (from 'arch/arm64/Makefile', line 162):
 	$(Q)$(MAKE) $(build)=$(boot) $(boot)/$@
 
+ 
 .DELETE_ON_ERROR:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -5454,11 +5448,12 @@ Image.gz:
 
 # strcache performance: lookups = 245 / hit rate = 51%
 # hash-table stats:
- 
 # Load=120/8192=1%, Rehash=0, Collisions=2/245=1%
-# Finished Make data base on Wed May 25 17:53:31 2022
+# Finished Make data base on Sun May 29 18:12:41 2022
 
  
+make: *** No rule to make target 'include/config/auto.conf', needed by 'include/config/kernel.release'.  Stop.
+
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -5466,7 +5461,7 @@ Image.gz:
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed May 25 17:53:31 2022
+# Make data base, printed on Sun May 29 18:12:41 2022
 
 # Variables
 
@@ -5510,9 +5505,6 @@ HOSTCC = gcc
 quiet_cmd_rmfiles = $(if $(wildcard $(rm-files)),CLEAN   $(wildcard $(rm-files)))
 # environment
 WSLENV = VSCODE_WSL_EXT_LOCATION/up
- 
-make: *** No rule to make target 'include/config/auto.conf', needed by 'include/config/kernel.release'.  Stop.
-
 # makefile (from 'Makefile', line 208)
 VPATH := .
 # makefile (from 'Makefile', line 1093)
@@ -5534,13 +5526,11 @@ PYTHON = python
 # makefile (from 'Makefile', line 536)
 RETPOLINE_VDSO_CFLAGS := 
 # makefile (from 'Makefile', line 951)
-KBUILD_CFLAGS := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -Werror -std=gnu89 -DANDROID_VERSION=990000 --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as -fno-PIE -mno-implicit-float -DCONFIG_AS_LSE=1  -fno-asynchronous-unwind-tables -fno-pic -Wno-asm-operand-widths -O2  -fno-stack-protector -Wno-format-invalid-specifier -Wno-gnu -Wno-address-of-packed-member -Wno-duplicate-decl-specifier -Wno-tautological-compare  -mno-global-merge -Wno-unused-const-variable -fomit-frame-pointer -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fno-merge-all-constants -fno-stack-check -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types -Wno-initializer-overrides -Wno-unused-value -Wno-format -Wno-sign-compare -Wno-format-zero-length -Wno-uninitialized    
-# makefile (from 'Makefile', line 518)
-GCC_TOOLCHAIN_DIR := ./toolchain/gcc/bin/
-# makefile (from 'scripts/Kbuild.include', line 172)
-clang-ifversion = $(call __cc-ifversion, clang, $(1), $(2), $(3), $(4))
+KBUILD_CFLAGS := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -Werror -std=gnu89 -DANDROID_VERSION=990000 -mgeneral-regs-only   -fno-asynchronous-unwind-tables -fno-pic -O2 -fomit-frame-pointer    
 # makefile (from 'Makefile', line 1776)
 CHECKSTACK_ARCH := arm64
+# makefile (from 'scripts/Kbuild.include', line 172)
+clang-ifversion = $(call __cc-ifversion, clang, $(1), $(2), $(3), $(4))
 # makefile (from 'Makefile', line 389)
 PERL = perl
 # makefile (from 'scripts/Kbuild.include', line 214)
@@ -5564,9 +5554,7 @@ endif
 endif
 endef
 # makefile (from 'arch/arm64/Makefile', line 45)
-lseinstr := -DCONFIG_AS_LSE=1
-# makefile (from 'Makefile', line 520)
-GCC_TOOLCHAIN := /root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc
+lseinstr := 
 # default
 MAKE_COMMAND := make
 # environment
@@ -5576,7 +5564,7 @@ TEXT_OFFSET := 0x00080000
 # makefile (from 'Makefile', line 1864)
 cmd_depmod = $(CONFIG_SHELL) $(srctree)/scripts/depmod.sh $(DEPMOD) $(KERNELRELEASE) "$(patsubst y,_,$(CONFIG_HAVE_UNDERSCORE_SYMBOL_PREFIX))"
 # makefile (from 'Makefile', line 950)
-KBUILD_AFLAGS := -D__ASSEMBLY__ --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as -fno-PIE -DCONFIG_AS_LSE=1     
+KBUILD_AFLAGS := -D__ASSEMBLY__      
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # makefile (from 'Makefile', line 362)
@@ -5598,17 +5586,17 @@ PWD = /root/kernel/SAMSUNG-M31-KERNEL-SOURCE
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # makefile (from 'Makefile', line 674)
-CFLAGS_KCOV := -fsanitize-coverage=trace-pc
+CFLAGS_KCOV := 
 # makefile (from 'scripts/Kbuild.include', line 230)
 gold-ifversion = $(call __ld-ifversion, gold, $(1), $(2), $(3), $(4))
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # makefile (from 'Makefile', line 756)
-stackp-flag :=  -fno-stack-protector
+stackp-flag := 
 # makefile (from 'Makefile', line 1063)
 mod_sign_cmd = true
-# makefile (from 'Makefile', line 956)
-KBUILD_LDFLAGS_MODULE := -T ./scripts/module-common.lds --build-id
+# makefile (from 'Makefile', line 437)
+KBUILD_LDFLAGS_MODULE := -T ./scripts/module-common.lds
 # makefile (from 'Makefile', line 1128)
 ARCH_POSTLINK := 
 # environment
@@ -5652,7 +5640,7 @@ cmd = @$(echo-cmd) $(cmd_$(1))
 # makefile (from 'Makefile', line 220)
 version_h := include/generated/uapi/linux/version.h
 # makefile (from 'Makefile', line 941)
-KBUILD_ARFLAGS := D
+KBUILD_ARFLAGS := 
 # makefile (from 'Makefile', line 460)
 RCS_FIND_IGNORE := \( -name SCCS -o -name BitKeeper -o -name .svn -o -name CVS -o -name .pc -o -name .hg -o -name .git \) -prune -o
 # makefile (from 'Makefile', line 176)
@@ -5739,6 +5727,7 @@ MRPROPER_FILES = .config .config.old .version .old_version Module.symvers tags T
 as-instr = $(call try-run, printf "%b\n" "$(1)" | $(CC) $(KBUILD_AFLAGS) -c -x assembler -o "$$TMP" -,$(2),$(3))
 # makefile (from 'scripts/Kbuild.include', line 294)
 arg-check = $(filter-out $(subst $(space),$(space_escape),$(strip $(cmd_$@))), $(subst $(space),$(space_escape),$(strip $(cmd_$1))))
+ 
 # makefile (from 'Makefile', line 499)
 ANDROID_VERSION = 990000
 # makefile (from 'scripts/Kbuild.include', line 226)
@@ -5785,14 +5774,12 @@ MAKE_HOST := x86_64-pc-linux-gnu
 SHELL = /bin/sh
 # makefile (from 'Makefile', line 1279)
 filechk_utsrelease.h = 	if [ `echo -n "$(KERNELRELEASE)" | wc -c ` -gt $(uts_len) ]; then echo '"$(KERNELRELEASE)" exceeds $(uts_len) characters' >&2; exit 1; fi; (echo \#define UTS_RELEASE \"$(KERNELRELEASE)\";)
-# makefile (from 'Makefile', line 525)
-CLANG_FLAGS := --target=aarch64-linux-gnu --prefix=./toolchain/gcc/bin/ --gcc-toolchain=/root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/gcc -no-integrated-as
 # makefile (from 'arch/arm64/Makefile', line 145)
 libs-y := arch/arm64/lib/ lib/
-# default
-MAKECMDGOALS := all
 # makefile (from 'Makefile', line 1506)
 package-dir := scripts/package
+# default
+MAKECMDGOALS := all
 # makefile (from 'scripts/Kbuild.include', line 256)
 clean := -f ./scripts/Makefile.clean obj
 # environment
@@ -5831,8 +5818,6 @@ KBUILD_MODULES := 1
 target-dir = $(dir $@)
 # makefile (from 'Makefile', line 204)
 objtree := .
-# makefile (from 'Makefile', line 513)
-CLANG_TRIPLE = $(srctree)/toolchain/gnu/bin/aarch64-linux-gnu-
 # makefile (from 'scripts/Kbuild.include', line 144)
 cc-name = $(shell $(CC) -v 2>&1 | grep -q "clang version" && echo clang || echo gcc)
 # makefile (from 'scripts/Kbuild.include', line 5)
@@ -5840,7 +5825,6 @@ comma := ,
 # makefile (from 'Makefile', line 447)
 CFLAGS_KASAN_NOSANITIZE := 
 # makefile (from 'arch/arm64/Makefile', line 209)
- 
 define archhelp
   echo  '* Image.gz      - Compressed kernel image (arch/$(ARCH)/boot/Image.gz)'
   echo  '  Image         - Uncompressed kernel image (arch/$(ARCH)/boot/Image)'
@@ -5925,11 +5909,11 @@ try-run = $(shell set -e; TMP="$(TMPOUT).$$$$.tmp"; TMPO="$(TMPOUT).$$$$.o"; if 
 # environment
 LESS = -R
 # makefile (from 'Makefile', line 949)
-KBUILD_CPPFLAGS := -D__KERNEL__ -mlittle-endian -Qunused-arguments  
+KBUILD_CPPFLAGS := -D__KERNEL__ -mlittle-endian  
 # makefile (from 'scripts/Kbuild.include', line 24)
 basetarget = $(basename $(notdir $@))
 # environment
-WSL_INTEROP = /run/WSL/5484_interop
+WSL_INTEROP = /run/WSL/14915_interop
 # 'override' directive
 GNUMAKEFLAGS := 
 # makefile (from 'Makefile', line 1884)
@@ -6031,7 +6015,7 @@ uts_len := 64
 # makefile (from 'Makefile', line 1631)
 DOC_TARGETS := xmldocs latexdocs pdfdocs htmldocs epubdocs cleandocs linkcheckdocs
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-0d9fed91-e1e9-4a1b-b103-5acd34cbf9b5.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-fd04c72f-3af5-4bf1-b567-03d88b36451f.sock
 # makefile (from 'scripts/Kbuild.include', line 169)
 gcc-if-fullversion = (call __cc-if-fullversion, gcc, $(1), $(2), $(3), $(4))
 # makefile (from 'scripts/Kbuild.include', line 218)
@@ -6063,7 +6047,7 @@ RETPOLINE_CFLAGS_CLANG := -mretpoline-external-thunk
 # makefile (from 'scripts/Kbuild.include', line 178)
 cc-version = $(shell $(CONFIG_SHELL) $(srctree)/scripts/gcc-version.sh $(CC))
 # makefile (from 'Makefile', line 954)
-LDFLAGS_BUILD_ID := --build-id
+LDFLAGS_BUILD_ID := 
 # environment
 TERM = xterm-256color
 # makefile (from 'Makefile', line 351)
@@ -6101,6 +6085,7 @@ STRIP = $(CROSS_COMPILE)strip
 # makefile (from 'Makefile', line 1053)
 INITRD_COMPRESS- := lz4
 # default
+ 
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
 # makefile (from 'Makefile', line 1157)
 filechk_kernel.release = 	echo "$(KERNELVERSION)$$($(CONFIG_SHELL) $(srctree)/scripts/setlocalversion $(srctree))"
@@ -6129,7 +6114,7 @@ KERNELVERSION = $(VERSION)$(if $(PATCHLEVEL),.$(PATCHLEVEL)$(if $(SUBLEVEL),.$(S
 # makefile (from 'Makefile', line 1450)
 CLEAN_DIRS = $(MODVERDIR)
 # makefile (from 'Makefile', line 896)
-CHECKFLAGS := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ -Wbitwise -Wno-return-void  -D__AARCH64EL__ -D__aarch64__ -m64 -nostdinc -isystem /root/kernel/SAMSUNG-M31-KERNEL-SOURCE/toolchain/clang/lib64/clang/6.0.1/include
+CHECKFLAGS := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ -Wbitwise -Wno-return-void  -D__AARCH64EL__ -D__aarch64__ -m64 -nostdinc -isystem 
 # makefile (from 'Makefile', line 1312)
 hdr-dst = $(if $(KBUILD_HEADERS), dst=include/arch-$(hdr-arch), dst=include)
 # makefile (from 'Makefile', line 1090)
@@ -6140,10 +6125,10 @@ net-y :=  net/built-in.o
 SUBARCH := x86
 # makefile (from 'Makefile', line 206)
 obj := .
-# makefile (from 'Makefile', line 957)
-LDFLAGS_vmlinux := --no-undefined -X --build-id
+# makefile (from 'arch/arm64/Makefile', line 13)
+LDFLAGS_vmlinux := --no-undefined -X
 # variable set hash-table stats:
-# Load=323/1024=32%, Rehash=0, Collisions=551/2082=26%
+# Load=319/1024=31%, Rehash=0, Collisions=452/1771=26%
 
 # Pattern-specific Variable Values
 
@@ -6153,7 +6138,6 @@ LDFLAGS_vmlinux := --no-undefined -X --build-id
 
 # arch (device 2080, inode 235806): 33 files, no impossibilities.
 # ./arch/arm64/configs (device 2080, inode 292529): 6 files, no impossibilities.
- 
 # . (device 2080, inode 38133): 62 files, no impossibilities.
 # include/config (device 2080, inode 251087): No files, no impossibilities so far.
 
@@ -6444,6 +6428,7 @@ vdso_install:
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'arch/arm64/Makefile', line 192):
+ 
 	$(Q)$(MAKE) $(build)=arch/arm64/kernel/vdso $@
 
 certs: prepare scripts
@@ -6451,7 +6436,6 @@ certs: prepare scripts
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
- 
 #  recipe to execute (from 'Makefile', line 1155):
 	$(Q)$(MAKE) $(build)=$@
 
@@ -6642,6 +6626,7 @@ headers_install_all:
 	$(Q)$(CONFIG_SHELL) $(srctree)/scripts/headers.sh install
 
 _clean_lib:
+ 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -6708,7 +6693,6 @@ mrproper: clean archmrproper _mrproper_scripts
 #  File does not exist.
 #  File has not been updated.
 # variable set hash-table stats:
- 
 # Load=2/32=6%, Rehash=0, Collisions=0/5=0%
 #  recipe to execute (from 'Makefile', line 1488):
 	$(call cmd,rmdirs)
@@ -6889,6 +6873,7 @@ include/generated/uapi/linux/version.h: Makefile FORCE
 	$(Q)rm -f $(old_version_h)
 
 _clean_fs:
+ 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -6975,7 +6960,6 @@ archclean:
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'arch/arm64/Makefile', line 196):
- 
 	$(Q)$(MAKE) $(clean)=$(boot)
 	$(Q)$(MAKE) $(clean)=$(boot)/dts
 
@@ -7100,6 +7084,7 @@ help:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
+ 
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1526):
 	@echo  'Cleaning targets:'
@@ -7228,7 +7213,6 @@ arch/arm64/lib/built-in.o: init usr arch/arm64/kernel arch/arm64/mm kernel certs
 	
 
 crypto/built-in.o: init usr arch/arm64/kernel arch/arm64/mm kernel certs mm fs ipc security crypto block drivers sound firmware net arch/arm64/lib lib virt
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -7372,6 +7356,7 @@ prepare2: prepare3 prepare-compiler-check outputmakefile asm-generic
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
+ 
 #  File has not been updated.
 
 kselftest:
@@ -7494,7 +7479,6 @@ export_report:
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1762):
- 
 	$(PERL) $(srctree)/scripts/export_report.pl
 
 _clean_block:
@@ -7618,6 +7602,7 @@ arch/arm64/kernel: prepare scripts
 #  recipe to execute (from 'Makefile', line 1155):
 	$(Q)$(MAKE) $(build)=$@
 
+ 
 kernel/built-in.o: init usr arch/arm64/kernel arch/arm64/mm kernel certs mm fs ipc security crypto block drivers sound firmware net arch/arm64/lib lib virt
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -7666,6 +7651,6 @@ modules:
 # strcache performance: lookups = 801 / hit rate = 66%
 # hash-table stats:
 # Load=269/8192=3%, Rehash=0, Collisions=18/801=2%
-# Finished Make data base on Wed May 25 17:53:31 2022
+# Finished Make data base on Sun May 29 18:12:41 2022
 
  
